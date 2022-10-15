@@ -6,6 +6,13 @@ This is a pseudo-distributed cluster for Hadoop docker image based on the offici
 The build follows the official docs found here:
 https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
 
+Download the hadoop tarball to this directory. This could be added to the Dockerfile if you want to automate it. I just didn't want to have to download it every time I built the image.
+```
+wget https://dlcdn.apache.org/hadoop/common/stable/hadoop-3.3.4.tar.gz
+```
+
+Configs are copied into the image from the `hadoop_configs` directory. The configs are modified to run in pseudo-distributed mode. You can find these configs in the hadoop installation at `hadoop/etc/hadoop`.
+
 The container mounts the directory `hadoop-root` as a bind volume to `/tmp/hadoop-root`. This is where hadoop state is stored so keeping it intact will allow you to continue using the cluster after restarting the container. Delete it if you want to start over.
 
 `entrypoint.sh` starts sshd, formats the namenode, and starts the hadoop daemons. `setup.sh` runs an example mapreduce job.
