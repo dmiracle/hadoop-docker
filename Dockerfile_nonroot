@@ -1,0 +1,17 @@
+FROM openjdk:8-jdk
+RUN apt-get update && apt-get install -y sudo openssh-server ssh pdsh && useradd -ms /bin/bash -G sudo hadoop
+COPY hadoop-3.3.4.tar.gz /opt/
+RUN cd /opt && tar -xzf hadoop-3.3.4.tar.gz && rm hadoop-3.3.4.tar.gz && \
+    mv hadoop-3.3.4 hadoop && export HADOOP_HOME=/opt/hadoop && \
+    export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+COPY hadoop-3.3.4/etc/hadoop/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
+COPY hadoop-3.3.4/etc/hadoop/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml
+RUN chown -R hadoop /opt/hadoop && chmod -R 744 /opt/hadoop && /etc/init.d/ssh start
+EXPOSE 9000
+EXPOSE 22
+USER hadoop:hadoop
+ENV HADOOP_HOME=/opt/hadoop
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
+    chmod 0600 ~/.ssh/authorized_keys
