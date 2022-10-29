@@ -29,6 +29,13 @@ docker run --env-file ./hadoop_env -p 9870:9870 -p 9864:9864 -p 9866:9866 \
 -it hadoop:latest bash
 ```
 
+Run with another mounted directory called `mapreduce` where all the work happens 
+```
+docker run --env-file ./hadoop_env -p 9870:9870 -p 9864:9864 -p 9866:9866 \
+--mount type=bind,source=$(pwd)/hadoop-root,destination=/tmp/hadoop-root \
+--mount type=bind,source=$(pwd)/mapreduce,destination=/mapreduce \-it hadoop:team bash
+```
+
 ## Example usage
 
 ```bash
