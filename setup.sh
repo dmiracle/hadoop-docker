@@ -2,6 +2,9 @@
 
 hdfs dfs -mkdir /user
 hdfs dfs -mkdir /user/root
-hdfs dfs -mkdir input
-hdfs dfs -put $HADOOP_HOME/etc/hadoop/*.xml input
-hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar grep input output 'dfs[a-z.]+'
+hdfs dfs -mkdir data
+hdfs dfs -mkdir user
+hdfs dfs -mkdir item
+hdfs dfs -put /mapreduce/movielens-homework-02-input/u.data data
+hdfs dfs -put /mapreduce/movielens-homework-02-input/u.user user
+hdfs dfs -put /mapreduce/movielens-homework-02-input/u.item item

@@ -17,3 +17,8 @@ hadoop-root/hadoop
 hadoop-root/hadoop-logs
 hadoop-root/hadoop-tmp
 hadoop-3.3.4/
+
+target/
+u.*
+
+.vscode/
