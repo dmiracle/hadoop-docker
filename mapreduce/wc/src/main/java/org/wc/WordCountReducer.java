@@ -1,4 +1,4 @@
-package org.hw2q1;
+package org.wc;
 
 import java.io.IOException;
 
