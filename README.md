@@ -6,9 +6,10 @@ This is a pseudo-distributed cluster for Hadoop docker image based on the offici
 The build follows the official docs found here:
 https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
 
-Download the hadoop tarball to this directory. This could be added to the Dockerfile if you want to automate it. I just didn't want to have to download it every time I built the image.
+Download the hadoop and maven tarballs to this directory. This could be added to the Dockerfile if you want to automate it. I just didn't want to have to download them every time I built the image.
 ```
 wget https://dlcdn.apache.org/hadoop/common/stable/hadoop-3.3.4.tar.gz
+wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
 ```
 
 Configs are copied into the image from the `hadoop_configs` directory. The configs are modified to run in pseudo-distributed mode. You can find these configs in the hadoop installation at `hadoop/etc/hadoop`.
