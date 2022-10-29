@@ -30,7 +30,7 @@ docker run --env-file ./hadoop_env -p 9870:9870 -p 9864:9864 -p 9866:9866 \
 -it hadoop:latest bash
 ```
 
-Run with another mounted directory called `mapreduce` where all the work happens 
+Run with another mounted directory called `mapreduce` where all the java work happens
 ```
 docker run --env-file ./hadoop_env -p 9870:9870 -p 9864:9864 -p 9866:9866 \
 --mount type=bind,source=$(pwd)/hadoop-root,destination=/tmp/hadoop-root \
@@ -48,6 +48,30 @@ hdfs dfs -mkdir /user/root
 hdfs dfs -mkdir input
 hdfs dfs -put $HADOOP_HOME/etc/hadoop/*.xml input
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar grep input output 'dfs[a-z.]+'
+```
+
+## Wordcount example
+
+Add import data to hdfs:
+
+```bash
+hdfs dfs -mkdir /user
+hdfs dfs -mkdir /user/root
+hdfs dfs -mkdir data
+hdfs dfs -put /mapreduce/wc/input data
+```
+
+Build the jar:
+
+```bash
+cd /mapreduce/wc
+mvn clean install
+```
+
+Run the job:
+
+```bash
+hadoop jar /mapreduce/wc/target/wc-1.0-SNAPSHOT.jar com.example.wc.WordCount input output
 ```
 
 ## Web interface

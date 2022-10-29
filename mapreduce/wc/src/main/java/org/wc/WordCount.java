@@ -1,4 +1,4 @@
-package org.hw2q1;
+package org.wc;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
