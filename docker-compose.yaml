@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  hadoop:
+    image: hadoop:spark
+    env_file:
+      - hadoop_env
+    ports:
+      - "9870:9870"
+      - "9864:9864"
+      - "9866:9866"
+      - "4040:4040"
+      - "8088:8088"
+    volumes:
+      - ./hadoop-root:/tmp/hadoop-root
+      - ./mapreduce:/mapreduce
+      - ./spark_examples:/spark_examples
+      

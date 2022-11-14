@@ -10,6 +10,7 @@ Download the hadoop and maven tarballs to this directory. This could be added to
 ```
 wget https://dlcdn.apache.org/hadoop/common/stable/hadoop-3.3.4.tar.gz
 wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+wget https://www.apache.org/dyn/closer.lua/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
 ```
 
 Configs are copied into the image from the `hadoop_configs` directory. The configs are modified to run in pseudo-distributed mode. You can find these configs in the hadoop installation at `hadoop/etc/hadoop`.
@@ -38,6 +39,14 @@ docker run --env-file ./hadoop_env -p 9870:9870 -p 9864:9864 -p 9866:9866 \
 -it hadoop:latest bash
 ```
 
+Run with spark
+```
+docker run --env-file ./hadoop_env -p 9870:9870 -p 9864:9864 -p 9866:9866 -p 4040:4040 \
+--mount type=bind,source=$(pwd)/hadoop-root,destination=/tmp/hadoop-root \
+--mount type=bind,source=$(pwd)/mapreduce,destination=/mapreduce \
+--mount type=bind,source=$(pwd)/spark_examples,destination=/spark_examples \
+-it hadoop:latest bash
+```
 ## Example usage
 
 ```bash
@@ -76,3 +85,13 @@ hadoop jar /mapreduce/wc/target/wc-1.0-SNAPSHOT.jar com.example.wc.WordCount inp
 
 ## Web interface
 The namenode web interface is available at http://localhost:9870 and the datanode web interface is available at http://localhost:9864.
+
+## Spark
+
+```
+spark-submit --master yarn --conf spark.eventLog.enabled=true --conf  spark.eventLog.dir=hdfs:/user/root/applicationHistory wordcountjob.py
+```
+
+
+https://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/DockerContainers.html
+
