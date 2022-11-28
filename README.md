@@ -95,3 +95,10 @@ spark-submit --master yarn --conf spark.eventLog.enabled=true --conf  spark.even
 
 https://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/DockerContainers.html
 
+
+https://ashwin.cloud/blog/running-apache-spark-on-a-single-node-pseudo-distributed-hadoop-cluster-in-macos/
+
+
+https://spark.apache.org/docs/latest/monitoring.html
+
+
